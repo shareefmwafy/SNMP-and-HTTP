@@ -151,8 +151,6 @@
                     "27" => "snmpEnableAuthenTraps"
                 );
 
-
-                
                 $group_oid = ".1.3.6.1.2.1.11";
                 $snmp_walk = snmp2_walk($ip, $community , $group_oid );
                
