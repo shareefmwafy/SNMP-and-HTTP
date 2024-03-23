@@ -102,7 +102,7 @@
                         continue;
                     else {
                         $value = snmp2_get($ip, $community, ".1.3.6.1.2.1.11." . $i . ".0");
-                        echo "<tr><td>.1.3.6.1.2.1.11.$i.0</td><td>{$oid_labels[$i]}</td><td>$value</td></tr>";
+                        echo "<tr><td>$i</td><td>{$oid_labels[$i]}</td><td>$value</td></tr>";
             }
                 }
                 ?>
