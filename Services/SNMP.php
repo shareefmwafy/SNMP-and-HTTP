@@ -67,8 +67,8 @@
                     <th>Value</th>
                 </tr>
                 <?php
-                $snmp_get = snmp2_get ($ip, "public" , ".1.3.6.1.2.1.11.3.0");
-                echo "<tr><td>.1.3.6.1.2.1.11.3.0</td><td>$snmp_get</td></tr>";
+                $snmp_get = snmp2_get ($ip, "public" , ".1.3.6.1.2.1.11.1.0");
+                echo "<tr><td>.1.3.6.1.2.1.11.1.0</td><td>$snmp_get</td></tr>";
                 $my_array  = array();
                 for ($i = 1; $i <= 30; $i++) {
                     if ($i == 7 || $i == 23) 
