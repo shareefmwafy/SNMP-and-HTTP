@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url("./Images/1.png") center/cover no-repeat; /* Using shorthand property for background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    width:600px;
+    height: auto; /* Change height to auto for flexible height based on content */
+    background-color: rgba(255, 255, 255, 0.8); /* Adding some transparency to the background */
+    padding: 50px; /* Adding padding for better spacing */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adding a subtle box shadow */
+}
+
+.buttons div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.buttons div a {
+    text-decoration: none;
+    color: #fff;
+    width: 200px;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    background-color: #196cc4;
+    border: 1px solid #9fc1e6; /* Match border color with background color */
+}
+
+.buttons div a:hover {
+    background-color: #667381;
+}
+
