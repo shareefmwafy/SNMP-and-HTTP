@@ -6,20 +6,28 @@
 <style>
     table {
         border-collapse: collapse;
-        width: 100%;
+        width: 80%;
+
     }
     th, td {
         border: 1px solid #dddddd;
-        text-align: left;
+        text-align: center;
         padding: 8px;
     }
     th {
         background-color: #f2f2f2;
+        color:black;
     }
-    body{
-        background: url("./Images/1.png") center/cover no-repeat; 
-
-    }
+    body {
+        font-family: Arial, sans-serif;
+        background: url("../Images/3.jpg") center/cover no-repeat; 
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        color:white;
+}
     
 </style>
 </head>

@@ -1,5 +1,4 @@
 let table = document.getElementById("table");
-let i = 0;
 let data = [];
 
 fetch("../Services/Service2.php")
@@ -14,7 +13,7 @@ fetch("../Services/Service2.php")
     
     console.log(jsonData); 
 
-    for (let i = 0; i < data.one.length - 1; i++) {
+    for (let i = 0; i < data.one.length; i++) { 
       let connectionState = data.one[i].split(":")[1];
       let systemUpTime = data.two[i].split(":")[1];
       let localPort = data.three[i].split(":")[1];
@@ -36,7 +35,7 @@ fetch("../Services/Service2.php")
       remotePortTd.textContent = remotePort;
 
       row.appendChild(connectionStateTd);
-      row.appendChild(systemUpTimeTd);
+      row.appendChild(LocalAddressTd); 
       row.appendChild(localPortTd);
       row.appendChild(remoteAddressTd);
       row.appendChild(remotePortTd);
