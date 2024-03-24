@@ -16,6 +16,11 @@
     th {
         background-color: #f2f2f2;
     }
+    body{
+        background: url("./Images/1.png") center/cover no-repeat; 
+
+    }
+    
 </style>
 </head>
 <body>

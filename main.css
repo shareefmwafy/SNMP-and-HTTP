@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: url("./Images/1.png") center/cover no-repeat; /* Using shorthand property for background */
+    background: url("./Images/1.png") center/cover no-repeat; 
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,16 +16,16 @@ body {
 
 .buttons {
     width:600px;
-    height: auto; /* Change height to auto for flexible height based on content */
-    background-color: rgba(255, 255, 255, 0.8); /* Adding some transparency to the background */
-    padding: 50px; /* Adding padding for better spacing */
-    border-radius: 10px; /* Rounded corners */
+    height: auto; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 50px; 
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adding a subtle box shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .buttons div {
@@ -46,7 +46,7 @@ body {
     transition: background-color 0.3s ease;
     text-align: center;
     background-color: #196cc4;
-    border: 1px solid #9fc1e6; /* Match border color with background color */
+    border: 1px solid #9fc1e6; 
 }
 
 .buttons div a:hover {
