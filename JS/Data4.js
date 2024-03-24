@@ -27,21 +27,26 @@ let keywords = [
   "Out Set-Request",
   "Out Get-Response",
   "Out Traps",
-  "ُEnable Auto Traps",
+  "Enable Auto Traps",
 ];
 let table = document.getElementById("table");
 let table2 = document.getElementById("table1");
 let i = 0;
 var data = [];
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    let data = JSON.parse(xhr.responseText);
-    console.log(data);
-    console.log(data[1][i].split(":")[0]);
-    for (let i = 0; i < data[0].length; i++) {
+
+fetch("../Services/Service4.php")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(jsonData => {
+    console.log(jsonData);
+    console.log(jsonData[1][i].split(":")[0]);
+    for (let i = 0; i < jsonData[0].length; i++) {
       //! Table Using Walk
-      let value_walk = data[0][i].split(":")[1];
+      let value_walk = jsonData[0][i].split(":")[1];
 
       let row_walk = document.createElement("tr");
       let idTr = document.createElement("td");
@@ -56,8 +61,8 @@ xhr.onreadystatechange = function () {
       row_walk.appendChild(valueTr_walk);
       table.appendChild(row_walk);
       //! Table Using Get
-      let id_get = data[1][i].split(":")[0];
-      let value_get = data[1][i].split(":")[2];
+      let id_get = jsonData[1][i].split(":")[0];
+      let value_get = jsonData[1][i].split(":")[2];
       let row_get = document.createElement("tr");
       let idTr_get = document.createElement("td");
       let nameTr_get = document.createElement("td");
@@ -73,7 +78,7 @@ xhr.onreadystatechange = function () {
 
       table2.appendChild(row_get);
     }
-  }
-};
-xhr.open("GET", "../Services/Service4.php", true);
-xhr.send();
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });

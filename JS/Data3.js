@@ -1,10 +1,16 @@
 let table = document.getElementById("table");
 let i = 0;
-var data = [];
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    data = JSON.parse(xhr.responseText);
+let data = [];
+
+fetch("../Services/Service3.php")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(jsonData => {
+    data = jsonData;
     for (let i = 0; i < data.one.length - 1; i++) {
       let interface = data.one[i].split(":")[1];
       let physicalAddress = data.two[i].split(":")[1];
@@ -30,7 +36,7 @@ xhr.onreadystatechange = function () {
 
       table.appendChild(row);
     }
-  }
-};
-xhr.open("GET", "../Services/Service3.php", true);
-xhr.send();
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });

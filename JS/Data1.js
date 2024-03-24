@@ -10,10 +10,16 @@ let keywords = [
 let table = document.getElementById("table");
 let i = 0;
 var data = [];
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    data = JSON.parse(xhr.responseText);
+
+fetch("../Services/Service1.php")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Connection error, No response from server');
+    }
+    return response.json();
+  })
+  .then(jsonData => {
+    data = jsonData;
     for (let i = 0; i < data.length - 1; i++) {
       let value = data[i].split(":")[1];
       let keyword = keywords[i];
@@ -25,8 +31,11 @@ xhr.onreadystatechange = function () {
       row.appendChild(keyData);
       row.appendChild(valData);
       table.appendChild(row);
+      console.log(data);
     }
-  }
-};
-xhr.open("GET", "../Services/Service1.php", true);
-xhr.send();
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+
+  

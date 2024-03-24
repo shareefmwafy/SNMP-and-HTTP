@@ -1,10 +1,19 @@
 let table = document.getElementById("table");
 let i = 0;
-var data = [];
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    data = JSON.parse(xhr.responseText);
+let data = [];
+
+fetch("../Services/Service2.php")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(jsonData => {
+    data = jsonData;
+    
+    console.log(jsonData); 
+
     for (let i = 0; i < data.one.length - 1; i++) {
       let connectionState = data.one[i].split(":")[1];
       let systemUpTime = data.two[i].split(":")[1];
@@ -15,13 +24,13 @@ xhr.onreadystatechange = function () {
       let row = document.createElement("tr");
 
       let connectionStateTd = document.createElement("td");
-      let systemUpTimeTd = document.createElement("td");
+      let LocalAddressTd = document.createElement("td");
       let localPortTd = document.createElement("td");
       let remoteAddressTd = document.createElement("td");
       let remotePortTd = document.createElement("td");
 
       connectionStateTd.textContent = connectionState;
-      systemUpTimeTd.textContent = systemUpTime;
+      LocalAddressTd.textContent = systemUpTime;
       localPortTd.textContent = localPort;
       remoteAddressTd.textContent = remoteAddress;
       remotePortTd.textContent = remotePort;
@@ -34,7 +43,7 @@ xhr.onreadystatechange = function () {
 
       table.appendChild(row);
     }
-  }
-};
-xhr.open("GET", "../Services/Service2.php", true);
-xhr.send();
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
