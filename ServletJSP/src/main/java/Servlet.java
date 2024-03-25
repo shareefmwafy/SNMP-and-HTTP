@@ -31,6 +31,7 @@ public class Servlet extends HttpServlet {
         String result = "NO";
         if (validateCredentials(username, password)) {
             result = "OK";
+            
         }
         request.setAttribute("result", result);
         request.getRequestDispatcher("Auth.jsp").forward(request, response);
