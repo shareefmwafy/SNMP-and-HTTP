@@ -12,13 +12,13 @@ let i = 0;
 var data = [];
 
 fetch("../Services/Service1.php")
-  .then(response => {
+  .then((response) => {
     if (!response.ok) {
-      throw new Error('Connection error, No response from server');
+      throw new Error("Connection error, No response from Server");
     }
     return response.json();
   })
-  .then(jsonData => {
+  .then((jsonData) => {
     data = jsonData;
     for (let i = 0; i < data.length - 1; i++) {
       let value = data[i].split(":")[1];
@@ -34,8 +34,6 @@ fetch("../Services/Service1.php")
       console.log(data);
     }
   })
-  .catch(error => {
-    console.error('Error fetching data:', error);
+  .catch((error) => {
+    console.error("Error fetching data:", error);
   });
-
-  
