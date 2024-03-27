@@ -5,11 +5,26 @@
 package net2_project;
 
 
-import java.io.IOException;
+
 import java.io.InputStream;
+
+import java.net.URLEncoder;
+
+import org.json.JSONArray;
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.Arrays;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 
 /**
  *
@@ -42,27 +57,7 @@ public class Frame1 extends javax.swing.JFrame {
         this.buttonPage4.setEnabled(false);
     }
 
-    public void responsePage1() {
-//        String urlPage1 = "http://127.0.0.1:80/NetHW/Services/Service1.php"; // Ayham Device 
-          String urlPage1 = "http://localhost/Network2-Project/Services/Service1.php"; // Shareef Device
-       
-    }
-     public void responsePage2() {
-//        String urlPage2 = "http://127.0.0.1:80/NetHW/Services/Service2.php"; // Ayham Device
-          String urlPage1 = "http://localhost/Network2-Project/Services/Service2.php";  // Shareef Device
-          
-       
-    }
-      public void responsePage3() {
-//        String urlPage3 = "http://127.0.0.1:80/NetHW/Services/Service3.php"; // Ayham Device 
-          String urlPage1 = "http://localhost/Network2-Project/Services/Service3.php";  // Shareef Device
-          
-       
-    }
-       public void responsePage4() {
-//        String urlPage4 = "http://127.0.0.1:80/NetHW/Services/Service4.php";  // Ayham Device 
-          String urlPage1 = "http://localhost/Network2-Project/Services/Service4.php";  // Shareef Device
-    }
+
 
     public void addParameter(String ps, String vs) {
         if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
@@ -83,9 +78,9 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String username = this.usernameTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-//      String firstVerifyURL = "http://localhost:8085/Project_Net2/firstService.jsp";// Ayham Device
-        String firstVerifyURL = "http://localhost:8085/ServletJSP/Auth.jsp"; // Shareef Device
+//        String firstVerifyURL = "http://localhost:8085/Project_Net2/firstService.jsp";
 
+        String firstVerifyURL = "http://localhost:8085/MavenServlet/MavenJSP.jsp";
         try {
             String string = firstVerifyURL + "?username=" + username + "&password=" + password;
             URL url = new URL(string);
@@ -117,11 +112,12 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String id = this.idTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-//        String seoncdVerifyURL = "http://localhost:8085/Project_Net2/Net2_Servlet"; // Ayham Device 
-        String seoncdVerifyURL = "http://localhost:8085/ServletJSP/Servlet";  // Shareef Device
+//        String seoncdVerifyURL = "http://localhost:8085/Project_Net2/Net2_Servlet";
+        String seoncdVerifyURL = "http://localhost:8085/MavenServlet/MavenServlet";
+        
         try {
-            String servletURL = seoncdVerifyURL + "?id=" + id + "&password=" + password;
-            URL url = new URL(servletURL);
+            String string = seoncdVerifyURL + "?id=" + id + "&password=" + password;
+            URL url = new URL(string);
 
             HttpURLConnection myConn = (HttpURLConnection) url.openConnection();
             InputStream inputStream = myConn.getInputStream();
@@ -142,8 +138,82 @@ public class Frame1 extends javax.swing.JFrame {
         } else {
             disableButtons();
         }
+        
 
     }
+   public static String getData(String urlString) {
+        StringBuilder responseData = new StringBuilder();
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+
+                while ((inputLine = in.readLine()) != null) {
+                    responseData.append(inputLine);
+                }
+                in.close();
+
+                String jsonResponse = responseData.toString();
+
+            } else {
+                System.out.println("GET request failed with response code: " + responseCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseData.toString();
+    }
+   
+   public static JSONObject getJsonData(String urlString) {
+        JSONObject jsonData = null;
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                String responseData = response.toString();
+                jsonData = new JSONObject(responseData);
+            } else {
+                System.out.println("GET request failed with response code: " + responseCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (org.json.JSONException e) {
+            System.out.println("Error parsing JSON response: " + e.getMessage());
+        }
+        return jsonData;
+    }
+   private static String[] toStringArray(JSONArray array) {
+        String[] result = new String[array.length()];
+        for (int i = 0; i < array.length(); i++) {
+            try{
+                result[i] = array.getString(i);
+            }
+            catch(Exception e){
+                
+            }
+            
+        }
+        return result;
+    }
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -371,19 +441,123 @@ public class Frame1 extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordTextFieldActionPerformed
 
     private void buttonPage2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage2ActionPerformed
-        // TODO add your handling code here:
+            String urlString = "http://localhost//Network2-Project/Services/Service2.php";
+        JSONObject jsonData = getJsonData(urlString);
+        Page2 page2 = new Page2();
+        String data =jsonData.toString();
+         try {
+            JSONObject jsonObject = new JSONObject(data);
+
+            JSONArray oneArray = jsonObject.getJSONArray("one");
+            JSONArray twoArray = jsonObject.getJSONArray("two");
+            JSONArray threeArray = jsonObject.getJSONArray("three");
+            JSONArray fourArray = jsonObject.getJSONArray("four");
+            JSONArray fiveArray = jsonObject.getJSONArray("five");
+
+            String[] one = toStringArray(oneArray);
+            String[] two = toStringArray(twoArray);
+            String[] three = toStringArray(threeArray);
+            String[] four = toStringArray(fourArray);
+            String[] five = toStringArray(fiveArray);
+            
+            for(int i=0;i<one.length;i++){
+                page2.addData(one[i], two[i], three[i], four[i], five[i]);
+            }
+            page2.setVisible(true);
+
+            
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_buttonPage2ActionPerformed
 
     private void buttonPage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonPage1ActionPerformed
+        
+        
+        String urlString = "http://localhost//Network2-Project/Services/Service1.php";
+        String responseData = getData(urlString);
+        Page1 page1 = new Page1();
+        String key [] = {"System Description",  "System ObjectID",  "System UpTime",  "System Contact",  "System Name",  "System Location",};
 
+        try {
+            JSONArray jsonArray = new JSONArray(responseData);
+            for (int i = 0; i < key.length; i++) {
+                String value = jsonArray.getString(i);
+                String[] parts = value.split(": ");
+                if (parts.length >= 2) {
+                    String data = parts[1];
+                    page1.addData(key[i], data);
+                }
+                if(parts.length<2 ){
+                    String data ="";
+                    page1.addData(key[i], data);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        page1.setVisible(true);
+        
+
+       
+          
+    }//GEN-LAST:event_buttonPage1ActionPerformed
+    
     private void buttonPage3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage3ActionPerformed
-        // TODO add your handling code here:
+                    String urlString = "http://localhost//Network2-Project/Services/Service3.php";
+        JSONObject jsonData = getJsonData(urlString);
+        Page3 page3 = new Page3();
+        String data =jsonData.toString();
+         try {
+            JSONObject jsonObject = new JSONObject(data);
+
+            JSONArray oneArray = jsonObject.getJSONArray("one");
+            JSONArray twoArray = jsonObject.getJSONArray("two");
+            JSONArray threeArray = jsonObject.getJSONArray("three");
+            JSONArray fourArray = jsonObject.getJSONArray("four");
+
+            String[] one = toStringArray(oneArray);
+            String[] two = toStringArray(twoArray);
+            String[] three = toStringArray(threeArray);
+            String[] four = toStringArray(fourArray);
+            
+            for(int i=0;i<one.length;i++){
+                page3.addData(one[i], two[i], three[i], four[i]);
+                
+                
+                
+            }
+            page3.setVisible(true);
+
+            
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_buttonPage3ActionPerformed
 
     private void buttonPage4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage4ActionPerformed
-        // TODO add your handling code here:
+        String urlString = "http://localhost//Network2-Project/Services/Service4.php";
+        String data = getData(urlString);        
+        
+        Page4 page4 = new Page4();
+        String[] parts = data.substring(2, data.length() - 2).split("\",\"");
+        
+
+        String[] array1 = new String[parts.length / 3];
+        String[] array2 = new String[parts.length / 3];
+        String[] array3 = new String[parts.length / 3];
+        
+
+        for (int i = 0; i < parts.length / 3; i++) {
+            array1[i] = parts[i];
+            array2[i] = parts[i + parts.length / 3];
+            array3[i] = parts[i + (parts.length / 3) * 2];
+            
+            page4.addData(array1[i], array2[i], array3[i]);
+        }
+        page4.setVisible(true);
+
     }//GEN-LAST:event_buttonPage4ActionPerformed
 
     /**
