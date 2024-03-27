@@ -43,20 +43,25 @@ public class Frame1 extends javax.swing.JFrame {
     }
 
     public void responsePage1() {
-        String urlPage1 = "http://127.0.0.1:80/NetHW/Services/Service1.php";
+//        String urlPage1 = "http://127.0.0.1:80/NetHW/Services/Service1.php"; // Ayham Device 
+          String urlPage1 = "http://localhost/Network2-Project/Services/Service1.php"; // Shareef Device
        
     }
      public void responsePage2() {
-        String urlPage2 = "http://127.0.0.1:80/NetHW/Services/Service2.php";
+//        String urlPage2 = "http://127.0.0.1:80/NetHW/Services/Service2.php"; // Ayham Device
+          String urlPage1 = "http://localhost/Network2-Project/Services/Service2.php";  // Shareef Device
+          
        
     }
       public void responsePage3() {
-        String urlPage3 = "http://127.0.0.1:80/NetHW/Services/Service3.php";
+//        String urlPage3 = "http://127.0.0.1:80/NetHW/Services/Service3.php"; // Ayham Device 
+          String urlPage1 = "http://localhost/Network2-Project/Services/Service3.php";  // Shareef Device
+          
        
     }
        public void responsePage4() {
-        String urlPage4 = "http://127.0.0.1:80/NetHW/Services/Service4.php";
-       
+//        String urlPage4 = "http://127.0.0.1:80/NetHW/Services/Service4.php";  // Ayham Device 
+          String urlPage1 = "http://localhost/Network2-Project/Services/Service4.php";  // Shareef Device
     }
 
     public void addParameter(String ps, String vs) {
@@ -78,7 +83,9 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String username = this.usernameTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-        String firstVerifyURL = "http://localhost:8085/Project_Net2/firstService.jsp";
+//      String firstVerifyURL = "http://localhost:8085/Project_Net2/firstService.jsp";// Ayham Device
+        String firstVerifyURL = "http://localhost:8085/ServletJSP/Auth.jsp"; // Shareef Device
+
         try {
             String string = firstVerifyURL + "?username=" + username + "&password=" + password;
             URL url = new URL(string);
@@ -110,10 +117,11 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String id = this.idTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-        String seoncdVerifyURL = "http://localhost:8085/Project_Net2/Net2_Servlet";
+//        String seoncdVerifyURL = "http://localhost:8085/Project_Net2/Net2_Servlet"; // Ayham Device 
+        String seoncdVerifyURL = "http://localhost:8085/ServletJSP/Servlet";  // Shareef Device
         try {
-            String string = seoncdVerifyURL + "?id=" + id + "&password=" + password;
-            URL url = new URL(string);
+            String servletURL = seoncdVerifyURL + "?id=" + id + "&password=" + password;
+            URL url = new URL(servletURL);
 
             HttpURLConnection myConn = (HttpURLConnection) url.openConnection();
             InputStream inputStream = myConn.getInputStream();
