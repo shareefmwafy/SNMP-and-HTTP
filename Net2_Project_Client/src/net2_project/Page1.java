@@ -32,16 +32,17 @@ public class Page1 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         firstPageTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        firstPageTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         firstPageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2"
+                "OID", "Value"
             }
         ));
+        firstPageTable.setGridColor(new java.awt.Color(204, 204, 255));
+        firstPageTable.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(firstPageTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package net2_project;
-
-
 
 import java.io.InputStream;
 
 import java.net.URLEncoder;
 
 import org.json.JSONArray;
-
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,8 +15,6 @@ import java.util.Arrays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 /**
  *
@@ -57,8 +47,6 @@ public class Frame1 extends javax.swing.JFrame {
         this.buttonPage4.setEnabled(false);
     }
 
-
-
     public void addParameter(String ps, String vs) {
         if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
             return;
@@ -78,9 +66,9 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String username = this.usernameTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-//        String firstVerifyURL = "http://localhost:8085/Project_Net2/firstService.jsp";
+        String firstVerifyURL = "http://localhost:8085/Net2_Project_Server/firstService.jsp";
 
-        String firstVerifyURL = "http://localhost:8085/MavenServlet/MavenJSP.jsp";
+//        String firstVerifyURL = "http://localhost:8085/MavenServlet/MavenJSP.jsp";
         try {
             String string = firstVerifyURL + "?username=" + username + "&password=" + password;
             URL url = new URL(string);
@@ -112,9 +100,9 @@ public class Frame1 extends javax.swing.JFrame {
         int check;
         String id = this.idTextField.getText();
         String password = new String(this.passwordTextField.getPassword());
-//        String seoncdVerifyURL = "http://localhost:8085/Project_Net2/Net2_Servlet";
-        String seoncdVerifyURL = "http://localhost:8085/MavenServlet/MavenServlet";
-        
+        String seoncdVerifyURL = "http://localhost:8085/Net2_Project_Server/Net2_Servlet";
+//        String seoncdVerifyURL = "http://localhost:8085/MavenServlet/MavenServlet";
+
         try {
             String string = seoncdVerifyURL + "?id=" + id + "&password=" + password;
             URL url = new URL(string);
@@ -138,10 +126,9 @@ public class Frame1 extends javax.swing.JFrame {
         } else {
             disableButtons();
         }
-        
-
     }
-   public static String getData(String urlString) {
+
+    public static String getData(String urlString) {
         StringBuilder responseData = new StringBuilder();
         try {
             URL url = new URL(urlString);
@@ -168,8 +155,8 @@ public class Frame1 extends javax.swing.JFrame {
         }
         return responseData.toString();
     }
-   
-   public static JSONObject getJsonData(String urlString) {
+
+    public static JSONObject getJsonData(String urlString) {
         JSONObject jsonData = null;
         try {
             URL url = new URL(urlString);
@@ -193,27 +180,25 @@ public class Frame1 extends javax.swing.JFrame {
                 System.out.println("GET request failed with response code: " + responseCode);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.toString();
         } catch (org.json.JSONException e) {
             System.out.println("Error parsing JSON response: " + e.getMessage());
         }
         return jsonData;
     }
-   private static String[] toStringArray(JSONArray array) {
+
+    private static String[] toStringArray(JSONArray array) {
         String[] result = new String[array.length()];
         for (int i = 0; i < array.length(); i++) {
-            try{
+            try {
                 result[i] = array.getString(i);
+            } catch (Exception e) {
+
             }
-            catch(Exception e){
-                
-            }
-            
+
         }
         return result;
     }
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -439,98 +424,104 @@ public class Frame1 extends javax.swing.JFrame {
     private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordTextFieldActionPerformed
-
+    private static String getValueFromColonSeparated(String data) {
+        if (data != null && data.contains(":")) {
+            String[] parts = data.split(":");
+            if (parts.length >= 2) {
+                return parts[1].trim();
+            }
+        }
+        return null; // or handle the case where value cannot be extracted
+    }
     private void buttonPage2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage2ActionPerformed
-            String urlString = "http://localhost//Network2-Project/Services/Service2.php";
-        JSONObject jsonData = getJsonData(urlString);
-        Page2 page2 = new Page2();
-        String data =jsonData.toString();
-         try {
-            JSONObject jsonObject = new JSONObject(data);
+        String urlString = "http://localhost//Network2-Project/Services/Service2.php";
+        try {
+            JSONObject jsonData = getJsonData(urlString);
 
-            JSONArray oneArray = jsonObject.getJSONArray("one");
-            JSONArray twoArray = jsonObject.getJSONArray("two");
-            JSONArray threeArray = jsonObject.getJSONArray("three");
-            JSONArray fourArray = jsonObject.getJSONArray("four");
-            JSONArray fiveArray = jsonObject.getJSONArray("five");
+            JSONArray oneArray = jsonData.getJSONArray("one");
+            JSONArray twoArray = jsonData.getJSONArray("two");
+            JSONArray threeArray = jsonData.getJSONArray("three");
+            JSONArray fourArray = jsonData.getJSONArray("four");
+            JSONArray fiveArray = jsonData.getJSONArray("five");
 
             String[] one = toStringArray(oneArray);
             String[] two = toStringArray(twoArray);
             String[] three = toStringArray(threeArray);
             String[] four = toStringArray(fourArray);
             String[] five = toStringArray(fiveArray);
-            
-            for(int i=0;i<one.length;i++){
-                page2.addData(one[i], two[i], three[i], four[i], five[i]);
+
+            Page2 page2 = new Page2();
+            for (int i = 0; i < one.length; i++) {
+                page2.addData(
+                        getValueFromColonSeparated(one[i]),
+                        getValueFromColonSeparated(two[i]),
+                        getValueFromColonSeparated(three[i]),
+                        getValueFromColonSeparated(four[i]),
+                        getValueFromColonSeparated(five[i])
+                );
             }
             page2.setVisible(true);
 
-            
         } catch (JSONException e) {
-            e.printStackTrace();
+            e.toString();
         }
-        
+
     }//GEN-LAST:event_buttonPage2ActionPerformed
 
     private void buttonPage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage1ActionPerformed
-        
-        
+
         String urlString = "http://localhost//Network2-Project/Services/Service1.php";
         String responseData = getData(urlString);
         Page1 page1 = new Page1();
-        String key [] = {"System Description",  "System ObjectID",  "System UpTime",  "System Contact",  "System Name",  "System Location",};
+        String key[] = {"System Description", "System ObjectID", "System UpTime", "System Contact", "System Name", "System Location",};
 
         try {
             JSONArray jsonArray = new JSONArray(responseData);
             for (int i = 0; i < key.length; i++) {
                 String value = jsonArray.getString(i);
-                String[] parts = value.split(": ");
+                String[] parts = value.split(":");
                 if (parts.length >= 2) {
-                    String data = parts[1];
-                    page1.addData(key[i], data);
-                }
-                if(parts.length<2 ){
-                    String data ="";
-                    page1.addData(key[i], data);
+                    String extractedValue = parts[1].trim();
+                    System.out.println(extractedValue);
+                    page1.addData(key[i], extractedValue);
+                } else {
+                    // Handle case where split didn't produce expected parts
+                    System.out.println("Unexpected data format: " + value);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         page1.setVisible(true);
-        
 
-       
-          
+
     }//GEN-LAST:event_buttonPage1ActionPerformed
-    
+
     private void buttonPage3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage3ActionPerformed
-                    String urlString = "http://localhost//Network2-Project/Services/Service3.php";
-        JSONObject jsonData = getJsonData(urlString);
-        Page3 page3 = new Page3();
-        String data =jsonData.toString();
-         try {
-            JSONObject jsonObject = new JSONObject(data);
+        String urlString = "http://localhost//Network2-Project/Services/Service3.php";
+        try {
+            JSONObject jsonData = getJsonData(urlString);
 
-            JSONArray oneArray = jsonObject.getJSONArray("one");
-            JSONArray twoArray = jsonObject.getJSONArray("two");
-            JSONArray threeArray = jsonObject.getJSONArray("three");
-            JSONArray fourArray = jsonObject.getJSONArray("four");
+            JSONArray oneArray = jsonData.getJSONArray("one");
+            JSONArray twoArray = jsonData.getJSONArray("two");
+            JSONArray threeArray = jsonData.getJSONArray("three");
+            JSONArray fourArray = jsonData.getJSONArray("four");
 
-            String[] one = toStringArray(oneArray);
-            String[] two = toStringArray(twoArray);
-            String[] three = toStringArray(threeArray);
-            String[] four = toStringArray(fourArray);
-            
-            for(int i=0;i<one.length;i++){
-                page3.addData(one[i], two[i], three[i], four[i]);
-                
-                
-                
+            String[] connectionState = toStringArray(oneArray);
+            String[] systemUpTime = toStringArray(twoArray);
+            String[] localPort = toStringArray(threeArray);
+            String[] remoteAddress = toStringArray(fourArray);
+
+            Page3 page3 = new Page3();
+            for (int i = 0; i < connectionState.length; i++) {
+                page3.addData(
+                        getValueFromColonSeparated(connectionState[i]),
+                        getValueFromColonSeparated(systemUpTime[i]),
+                           getValueFromColonSeparated(localPort[i]),
+                           getValueFromColonSeparated(remoteAddress[i])
+                );
             }
             page3.setVisible(true);
-
-            
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -538,22 +529,21 @@ public class Frame1 extends javax.swing.JFrame {
 
     private void buttonPage4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPage4ActionPerformed
         String urlString = "http://localhost//Network2-Project/Services/Service4.php";
-        String data = getData(urlString);        
-        
+        String data = getData(urlString);
+
         Page4 page4 = new Page4();
         String[] parts = data.substring(2, data.length() - 2).split("\",\"");
-        
+        System.out.println(Arrays.toString(parts));
 
         String[] array1 = new String[parts.length / 3];
         String[] array2 = new String[parts.length / 3];
         String[] array3 = new String[parts.length / 3];
-        
 
         for (int i = 0; i < parts.length / 3; i++) {
             array1[i] = parts[i];
             array2[i] = parts[i + parts.length / 3];
             array3[i] = parts[i + (parts.length / 3) * 2];
-            
+
             page4.addData(array1[i], array2[i], array3[i]);
         }
         page4.setVisible(true);

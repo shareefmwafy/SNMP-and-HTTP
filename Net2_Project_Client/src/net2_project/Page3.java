@@ -31,8 +31,6 @@ public class Page3 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         thirdPageTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         thirdPageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

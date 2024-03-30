@@ -31,8 +31,6 @@ public class Page4 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         fourthPageTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         fourthPageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

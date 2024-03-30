@@ -31,8 +31,6 @@ public class Page2 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         secondPageTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         secondPageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -62,7 +60,7 @@ public class Page2 extends javax.swing.JFrame {
      */
     public void addData(String string1, String string2, String s3, String s4, String s5) {
         DefaultTableModel model = (DefaultTableModel) secondPageTable.getModel();
-        Object[] dataRow = {string1, string2,s3,s4,s4,s5};
+        Object[] dataRow = {string1, string2,s3,s4,s5};
         model.addRow(dataRow);
     }
     public static void main(String args[]) {
